@@ -20,4 +20,13 @@ router.get('/', function(req, res, next) {
   .catch(next);
 });
 
+
+// router.get('/api/hotels', (req, res, next) => {
+// res.send('hello')
+//   // Hotel.findAll()
+//   // .then((hotels) => {
+//   //   res.json(hotels)
+//   // })
+// })
+
 module.exports = router;
