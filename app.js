@@ -29,8 +29,9 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 // serve dynamic routes
 app.use(require('./routes'));
+
 app.use('/api', apiRouter);
-// app.use('api/days', dayRouter);
+
 app.get('/', function (req, res) {
     res.redirect('/api');
 });
