@@ -41,7 +41,36 @@ var tripModule = (function () {
   // jQuery event binding
 
   $(function () {
-    $addButton.on('click', addDay);
+    // $addButton.on('click', addDay);
+    
+    $addButton.on('click', function () {
+      var daysNum = Object.keys($('.day-btn').find()).length
+      // console.log('daysnum', daysNum)
+      $.post({
+        url: '/api/days/',
+        data: { number: daysNum + 1 }
+      })
+        .then(data => {
+          $button = $('<button class="btn btn-circle day-btn"></button>')
+            .text(daysNum + 1)
+            .appendTo($('.day-buttons'))
+      })
+    });
+
+  Day.prototype.buildButton = function () {
+    // this.$button = $('<button class="btn btn-circle day-btn"></button>')
+      // .text(this.number);
+    var self = this;
+    this.$button.on('click', function (){
+      this.blur(); // removes focus box from buttons
+      tripModule.switchTo(self);
+    });
+    return this;
+  };
+
+
+
+
     $removeButton.on('click', deleteCurrentDay);
   });
 
