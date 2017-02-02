@@ -13,7 +13,7 @@ router.get('/days', (req, res, next) => {
 })
 
 router.post('/days', (req, res, next) => {
-	Day.create({number:1})
+	Day.create({number:1})    //change number to currentDay variable
 	.then(day=> {
 		res.json(day)
 	}).catch(next)
