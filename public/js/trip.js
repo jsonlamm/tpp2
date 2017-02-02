@@ -42,17 +42,18 @@ var tripModule = (function () {
 
   $(function () {
     // $addButton.on('click', addDay);
-    
+
     $addButton.on('click', function () {
-      var daysNum = Object.keys($('.day-btn').find()).length
+      var daysNum = $('.day-btn').length
       // console.log('daysnum', daysNum)
+      console.log('daysnum', daysNum)
       $.post({
         url: '/api/days/',
-        data: { number: daysNum + 1 }
+        data: { number: daysNum }
       })
         .then(data => {
           $button = $('<button class="btn btn-circle day-btn"></button>')
-            .text(daysNum + 1)
+            .text(daysNum)
             .appendTo($('.day-buttons'))
       })
     });
