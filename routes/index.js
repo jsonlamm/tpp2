@@ -7,28 +7,17 @@ var Activity = require('../models/activity');
 var Day = require('../models/day');
 
 router.get('/', function(req, res, next) {
-  Promise.all([
-    Hotel.findAll(),
-    Restaurant.findAll(),
-    Activity.findAll()
-  ])
-  .spread(function(dbHotels, dbRestaurants, dbActivities) {
-    res.render('index', {
-      templateHotels: dbHotels,
-      templateRestaurants: dbRestaurants,
-      templateActivities: dbActivities
-    });
-  })
-  .catch(next);
+
+    res.render('index')
+
 });
 
 
-// router.get('/api/hotels', (req, res, next) => {
-// res.send('hello')
-//   // Hotel.findAll()
-//   // .then((hotels) => {
-//   //   res.json(hotels)
-//   // })
-// })
+router.get('/api/hotels', (req, res, next) => {
+  Hotel.findAll()
+  .then((hotels) => {
+    res.json(hotels)
+  })
+})
 
 module.exports = router;

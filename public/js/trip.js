@@ -74,8 +74,21 @@ var tripModule = (function () {
 
   var publicAPI = {
 
+
+
     load: function () {
-      $(addDay);
+      $.get('/api/days')
+      .then(function (days) {
+      days.forEach(day=> $(addDay))
+     })
+      .catch( console.error.bind(console) );
+
+
+
+
+
+
+      // $(addDay);
     },
 
     switchTo: switchTo,

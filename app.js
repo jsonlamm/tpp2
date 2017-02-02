@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var nunjucks = require('nunjucks');
 var path = require('path');
 var apiRouter = require('./routes/api/attractions');
-var dayRouter = require('./routes/api/days');
+
 
 var db = require('./models');
 

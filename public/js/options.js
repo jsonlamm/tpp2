@@ -11,9 +11,6 @@
 
 $(function(){
 
-var hotels;
-var restaurants;
-var activities;
 
 
   // jQuery selects
@@ -24,21 +21,20 @@ var activities;
 
 $.get('/api/hotels')
 .then(function (hotels) {
-	hotels = hotels
 	hotels.forEach(makeOption, $hotelSelect);
 })
 .catch( console.error.bind(console) );
 
 $.get('/api/restaurants')
 .then(function (restaurants) {
-	restaurants = restaurants
+
 	restaurants.forEach(makeOption, $restaurantSelect);
 })
 .catch( console.error.bind(console) );
 
 $.get('/api/activities')
 .then(function (activities) {
-	activities = activities
+
 	activities.forEach(makeOption, $activitySelect);
 })
 .catch( console.error.bind(console) );
