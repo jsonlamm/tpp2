@@ -11,15 +11,45 @@
 
 $(function(){
 
+var hotels;
+var restaurants;
+var activities;
+
+
   // jQuery selects
   var $optionsPanel = $('#options-panel');
   var $hotelSelect = $optionsPanel.find('#hotel-choices');
   var $restaurantSelect = $optionsPanel.find('#restaurant-choices');
   var $activitySelect = $optionsPanel.find('#activity-choices');
 
+$.get('/api/hotels')
+.then(function (hotels) {
+	hotels = hotels
+	hotels.forEach(makeOption, $hotelSelect);
+})
+.catch( console.error.bind(console) );
+
+$.get('/api/restaurants')
+.then(function (restaurants) {
+	restaurants = restaurants
+	restaurants.forEach(makeOption, $restaurantSelect);
+})
+.catch( console.error.bind(console) );
+
+$.get('/api/activities')
+.then(function (activities) {
+	activities = activities
+	activities.forEach(makeOption, $activitySelect);
+})
+.catch( console.error.bind(console) );
+
+
+
+
+
   // make all the option tags (second arg of `forEach` is a `this` binding)
   hotels.forEach(makeOption, $hotelSelect);
-  restaurants.forEach(makeOption, $restaurantSelect);
+  
   activities.forEach(makeOption, $activitySelect);
 
   function makeOption (databaseAttraction) {
