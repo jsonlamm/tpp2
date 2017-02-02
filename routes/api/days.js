@@ -14,7 +14,11 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-	Day.create({number:1})    //change number to currentDay variable
+
+	var body = req.body
+	body.number = +body.number
+	console.log('rrreeeqqqq', req.body)
+	Day.create(body)    //change number to currentDay variable
 	.then(day=> {
 		res.json(day)
 	}).catch(next)
@@ -42,7 +46,14 @@ router.get('/:id/activities', (req, res, next) => {
 })
 
 router.post('/:id/hotels', (req, res, next) => {
-	res.send('post hotels on specific day')
+	Day.findById(req.params.id)
+	.then(function(day){
+		console.log('#####',req.body.hotelId)
+		return day.update({hotelId : req.body.hotelId})
+	}).then(function(day){
+		res.send(day);
+	})
+
 })
 
 router.post('/:id/restaurants', (req, res, next) => {

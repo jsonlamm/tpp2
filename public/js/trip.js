@@ -1,4 +1,6 @@
 'use strict';
+
+
 /* global $ dayModule */
 
 /**
@@ -41,33 +43,70 @@ var tripModule = (function () {
   // jQuery event binding
 
   $(function () {
-    // $addButton.on('click', addDay);
+  
 
     $addButton.on('click', function () {
-      var daysNum = $('.day-btn').length
-      // console.log('daysnum', daysNum)
-      console.log('daysnum', daysNum)
+      var newDayNum = $('.day-btn').length
       $.post({
         url: '/api/days/',
-        data: { number: daysNum }
+        data: { number: newDayNum }
       })
         .then(data => {
-          $button = $('<button class="btn btn-circle day-btn"></button>')
-            .text(daysNum)
+          $('.day-btn').removeClass('current-day')
+          $('<button class="btn btn-circle day-btn current-day"></button>')
+            .text(newDayNum)
             .appendTo($('.day-buttons'))
-      })
+            
+
+          $('#day-title > span').text(`Day ${newDayNum}`);
+          // console.log('dayTitle',dayTitle)
+
+      })  
+
     });
 
-  Day.prototype.buildButton = function () {
-    // this.$button = $('<button class="btn btn-circle day-btn"></button>')
-      // .text(this.number);
-    var self = this;
-    this.$button.on('click', function (){
-      this.blur(); // removes focus box from buttons
-      tripModule.switchTo(self);
-    });
-    return this;
-  };
+
+$('#hotelAdd').click(function(){
+    var hotelId = $(this).prev().val()
+   var currentDay = +($('#day-title > span').text().slice(3))
+   var dayId;
+   $.get('/api/days')
+   .then(function (days) {
+      days.forEach(day=>{
+        if(day.number===currentDay){
+          dayId = day.id
+        }
+      })
+    $.post({
+        url: `/api/days/${dayId}/hotels`,
+        data: { hotelId: hotelId }
+      })
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Day.prototype.buildButton = function () {
+  //   // this.$button = $('<button class="btn btn-circle day-btn"></button>')
+  //     // .text(this.number);
+  //   var self = this;
+  //   this.$button.on('click', function (){
+  //     this.blur(); // removes focus box from buttons
+  //     tripModule.switchTo(self);
+  //   });
+  //   return this;
+  // };
 
 
 
